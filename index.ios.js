@@ -14,11 +14,23 @@ import {
 } from 'react-native';
 
 export default class weather extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      pin: {
+        latitude: 0,
+        longitude: 0
+      }
+    };
+  }
+
+
   render() {
     return (
       <MapView
         style={styles.map}
-        onRegionChangeComplete={this.onRegionChangeComplete}
+        onRegionChangeComplete={this.onRegionChangeComplete.bind(this)}
+        annotations={[this.state.pin]}
         >
 
       </MapView>
@@ -26,7 +38,13 @@ export default class weather extends Component {
   }
 
   onRegionChangeComplete(region){
-    console.log(region)
+    this.setState({
+      pin: {
+        longitude: region.longitude,
+        latitude: region.latitude
+      }
+    })
+
   }
 
 }
