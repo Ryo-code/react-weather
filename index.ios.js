@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import Api from './src/api';
 import {
   AppRegistry,
   StyleSheet,
@@ -20,10 +21,12 @@ export default class weather extends Component {
       pin: {
         latitude: 0,
         longitude: 0
-      }
+      },
+      city: '',
+      temperature: '',
+      description: ''
     };
   }
-
 
   render() {
     return (
@@ -43,7 +46,14 @@ export default class weather extends Component {
         longitude: region.longitude,
         latitude: region.latitude
       }
-    })
+    });
+
+    //whenever the map stops being dragged, the API is called
+    Api(region.latitude, region.longitude)
+      .then((data) => {
+        console.log('dataaaaaa', data);
+        this.setState(data);
+      });
 
   }
 
