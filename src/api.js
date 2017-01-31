@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const rootURL = 'http://api.openweathermap.org/data/2.5/weather';
 const APPID = "be44b10cea2a6688c15d84f0523cc7ba"
 //This probably won't work with the iOS simulator now...
@@ -22,7 +24,7 @@ export default (latitude, longitude) => {
       return {
         city: json.name,
         temperature: kelvinToC(json.main.temp),
-        description: json.weather[0].description
+        description: _.capitalize(json.weather[0].description)
       }
     });
 }
